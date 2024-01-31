@@ -1,6 +1,6 @@
 {
-  "short_name": "To-Do List",
-  "name": "A To-Do List using States Only",
+  "short_name": "Counter Basic",
+  "name": "A Basic Counter Using States Only",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
