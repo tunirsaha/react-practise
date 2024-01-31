@@ -1,6 +1,6 @@
 export const Btn = ({ parentCb }) => {
     return (
-        <div><button onClick={(ev) => parentCb(ev)}>Submit</button></div>
+        <button className="btn btn-success" onClick={(ev) => parentCb(ev)}>Submit</button>
     )
 }
 
