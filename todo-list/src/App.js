@@ -28,7 +28,7 @@ const App = () => {
     <div style={{ width: 500 }} className="p-5 m-5 mx-auto rounded border text-center bg-light">
       <h1 className="mb-5">To Do List</h1>
       <div className="d-flex justify-content-between align-items-center">
-        <Input parentCb={(el) => setItem(el)}></Input>
+        <Input list={list} parentCb={(el) => setItem(el)}></Input>
         <Btn parentCb={() => addItem()}></Btn>
       </div>
       <List type={'To Be Done'} deleteOrReset={(idx) => updateArr(idx)} list={list.filter((item) => { return item.status })}></List>
