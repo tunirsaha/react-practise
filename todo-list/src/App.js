@@ -14,8 +14,7 @@ const App = () => {
     setList([...list, { id: ctr, item: item, status: true }])
   }
 
-  const updateArr = (index, event) => {
-    console.log(`${event} called`, list)
+  const updateArr = (index) => {
     list.forEach((el) => {
       if (el.id === index) {
         el.status = !el.status

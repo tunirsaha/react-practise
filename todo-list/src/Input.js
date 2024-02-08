@@ -1,17 +1,17 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Input = ({ parentCb, list }) => {
 
     const inputRef = useRef();
-    // const [elem, setElem] = useState({})
 
     const handleInput = (el) => {
-        //     setElem({ el.target.value })
         parentCb(el.target.value)
     }
 
     useEffect(() => {
-        inputRef.target.value = '';
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
     }, [list])
 
     return (
