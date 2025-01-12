@@ -1,7 +1,7 @@
 # React Practise Repository README
 > A list of UI Projects made by me while I was learning React
    
-## Examples
+## Projects
 
 - [To Do List](https://github.com/tunirsaha/react-practise/tree/main/todo-list) - A vanilla to do list for exploring props.
 
