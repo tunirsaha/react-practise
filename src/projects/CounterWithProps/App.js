@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Increment from './Increment'
-import Decrement from './Decrement'
-import Counter from './Counter'
+import Increment from './components/Increment'
+import Decrement from './components/Decrement'
+import Counter from './components/Counter'
 
-const App = () => {
+const CounterWithProps = () => {
 
   const [count, updateCount] = useState(0);
   const handleIncrement = () => {
@@ -24,4 +24,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default CounterWithProps;

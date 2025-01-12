@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Input from './Input'
-import Btn from './Btn'
-import List from './List'
+import Input from './components/Input'
+import Btn from './components/Btn'
+import List from './components/List'
 
-const App = () => {
+const ToDoList = () => {
 
   const [item, setItem] = useState('');
   const [list, setList] = useState([]);
@@ -37,4 +37,4 @@ const App = () => {
 
 }
 
-export default App;
+export default ToDoList;
