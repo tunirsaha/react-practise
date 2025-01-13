@@ -7,19 +7,19 @@ const CounterWithProps = () => {
 
   const [count, updateCount] = useState(0);
   const handleIncrement = () => {
-    updateCount((prev) => prev + 1)
+    updateCount(count + 1)
   }
   const handleDecrement = () => {
-    updateCount((prev) => prev - 1)
+    updateCount(count - 1)
   }
 
   return (
-    <div className="d-flex align-items-center justify-content-around" style={{ height: '100vh', width: '100vw' }}>
-      <div>
-        <Increment increment={handleIncrement}></Increment>
-        <Counter count={count}></Counter>
-        <Decrement decrement={handleDecrement}></Decrement>
-      </div>
+    <div className="position-relative">
+      <h3>A Button Counter</h3>
+      <p>Pretty self explanatory</p>
+      <Increment increment={handleIncrement}></Increment>
+      <Counter count={count}></Counter>
+      <Decrement decrement={handleDecrement}></Decrement>
     </div>
   )
 }
