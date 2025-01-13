@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import View from './components/View'
 import Menu from './components/Menu'
-import { v4 as uuidv4 } from 'uuid';
-import { MenuItem } from './models/menu.model';
+import { v4 as uuidv4 } from 'uuid'
+import { MenuItem } from './models/menu.model'
 
 const VSCodeFileBrowser = () => {
     const [directory, setDirectory] = useState([{

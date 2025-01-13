@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import VSCodeFileBrowser from './projects/VSCodeFileBrowser/VsCodeFileBrowser';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import VSCodeFileBrowser from './projects/VSCodeFileBrowser/VSCodeFileBrowser';
 import ToDoList from './projects/ToDoList/ToDoList';
-import CounterWithProps from './projects/CounterWithProps/App';
+import CounterWithProps from './projects/CounterWithProps/CounterWithProps';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     return (
