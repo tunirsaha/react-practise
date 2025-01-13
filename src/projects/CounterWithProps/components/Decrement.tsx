@@ -1,9 +1,10 @@
 interface Props {
     decrement: () => void
+    count: number
 }
-const Decrement = ({ decrement }: Props) => {
+const Decrement = ({ decrement, count }: Props) => {
     return (
-        <button className="btn btn-danger" onClick={decrement}>-</button>
+        <button disabled={count == 0} className="btn btn-danger" onClick={decrement}>-</button>
     )
 }
 

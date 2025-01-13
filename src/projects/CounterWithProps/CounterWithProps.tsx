@@ -10,7 +10,7 @@ const CounterWithProps = () => {
     updateCount(count + 1)
   }
   const handleDecrement = () => {
-    updateCount(count - 1)
+    updateCount(count > 0 ? (count - 1) : count)
   }
 
   return (
@@ -19,7 +19,7 @@ const CounterWithProps = () => {
       <p>Pretty self explanatory</p>
       <Increment increment={handleIncrement}></Increment>
       <Counter count={count}></Counter>
-      <Decrement decrement={handleDecrement}></Decrement>
+      <Decrement count={count} decrement={handleDecrement}></Decrement>
     </div>
   )
 }
