@@ -4,7 +4,7 @@ interface Props {
 }
 const Decrement = ({ decrement, count }: Props) => {
     return (
-        <button disabled={count == 0} className="btn btn-danger" onClick={decrement}>-</button>
+        <button disabled={count === 0} className="btn btn-danger" onClick={decrement}>-</button>
     )
 }
 

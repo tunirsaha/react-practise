@@ -1,43 +1,27 @@
-import React from 'react'
-import { BsFillFileTextFill, BsFillFolderFill } from "react-icons/bs";
 import { MenuItem } from '../models/menu.model';
+import Item from './Item';
 
 interface Props {
     directory: MenuItem[];
-    itemClicked: (id: string, e: React.MouseEvent) => void;
+    selectedNode: (s: string, n: number[]) => void;
 }
 
-const View = ({ directory, itemClicked }: Props) => {
-
+const View = ({ directory, selectedNode }: Props) => {
     return (
         <div>
-            {
-                directory
-                && directory.length > 0
-                && directory.map((i: MenuItem) =>
-                    <div key={i.id}  >
-                        <div className="d-flex align-items-center">
-                            <span className="me-1">
-                                {
-                                    i.children
-                                        ? <BsFillFolderFill />
-                                        : <BsFillFileTextFill />
-                                }
-                            </span>
-                            <span onClick={(event) => itemClicked(i.id, event)}>{i.name}</span>
-                        </div>
+            {directory.length > 0 &&
+                directory.map((i: MenuItem) => (
+                    <div key={i.id} className="position-relative">
+                        <Item data={i} itemClick={selectedNode} />
                         <div className="ms-3">
-                            {
-                                i.children
-                                && i.children.length > 0
-                                && (<View directory={i.children} itemClicked={(e, x) => itemClicked(e, x)} />)
-                            }
+                            {i.children && i.children.length > 0 && (
+                                <View directory={i.children} selectedNode={selectedNode} />
+                            )}
                         </div>
                     </div>
-                )
-            }
-        </div >
-    )
-}
+                ))}
+        </div>
+    );
+};
 
-export default View
+export default View;
