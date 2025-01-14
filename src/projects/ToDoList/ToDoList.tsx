@@ -7,8 +7,8 @@ import { Item } from './models/item.model'
 
 const ToDoList = () => {
 
-  const [item, setItem] = useState('');
-  const [list, setList] = useState([] as Item[]);
+  const [item, setItem] = useState<string>('');
+  const [list, setList] = useState<Item[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 

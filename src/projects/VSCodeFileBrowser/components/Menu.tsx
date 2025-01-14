@@ -1,5 +1,8 @@
-import React, { Fragment, useState } from 'react'
-import { BsXCircleFill } from 'react-icons/bs';
+import { useState } from 'react';
+import { ASSETS } from '../models/asset.model';
+import AssetCreateForm from './AssetCreateForm';
+import Close from './Close';
+import AssetTypeSelector from './AssetTypeSelector';
 
 const menuBarStyles = {
     border: "1px solid #cacaca",
@@ -12,40 +15,24 @@ const menuBarStyles = {
 }
 
 interface Props {
-    position: number[]
     dismissMenu: () => void
-    submitMenu: (addType: string, addName: string) => void
+    position: number[]
+    submitMenu: (addType: typeof ASSETS[keyof typeof ASSETS], addName: string) => void
 }
 
-const Menu = ({ position, dismissMenu, submitMenu }: Props) => {
-    const [addType, setAddType] = useState('');
-    const [inputText, setInputText] = useState('');
-    const handleFolderClick = () => setAddType('folder');
-    const handleFileClick = () => setAddType('file');
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => setInputText(event.target.value)
+const AssetCreateMenu = ({ dismissMenu, submitMenu, position }: Props) => {
+
+    const [addType, setAddType] = useState<typeof ASSETS[keyof typeof ASSETS] | ''>('');
 
     return (
-        <div className="position-fixed d-flex flex-column" style={{ ...menuBarStyles, top: position[0]-25, left: position[1]+20 }}>
+        <div className="position-fixed d-flex flex-column" style={{ ...menuBarStyles, top: position[1], left: position[0] + 35 }}>
             <div className="position-relative">
-                <span onClick={dismissMenu} className="position-absolute cursor-pointer" style={{ top: 0, right: 3 }}>
-                    <BsXCircleFill />
-                </span>
-                {!addType &&
-                    <ul className="list-unstyled">
-                        <li onClick={handleFolderClick}>Add Folder</li>
-                        <li onClick={handleFileClick}>Add File</li>
-                    </ul>
-                }
-                {addType &&
-                    <Fragment>
-                        <div className="mb-2">Creating a {addType}</div>
-                        <input onChange={handleInput} />
-                        <button onClick={() => submitMenu(addType, inputText)} className="btn btn-sm btn-success mt-3">Create</button>
-                    </Fragment>
-                }
+                <Close cancel={dismissMenu} position={[0, 3]} />
+                {!addType && <AssetTypeSelector assetTypeSelected={setAddType} />}
+                {addType && <AssetCreateForm assetType={addType as typeof ASSETS[keyof typeof ASSETS]} submitInputForm={submitMenu} />}
             </div >
         </div >
     )
 }
 
-export default Menu
+export default AssetCreateMenu

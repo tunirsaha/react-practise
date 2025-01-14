@@ -1,72 +1,51 @@
-import React, { useState } from 'react'
-import View from './components/View'
-import Menu from './components/Menu'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import Menu from './components/Menu'
+import View from './components/View'
+import { ASSETS } from './models/asset.model'
 import { MenuItem } from './models/menu.model'
+import { recursiveInsert } from './utils/main.util'
 
 const VSCodeFileBrowser = () => {
-    const [directory, setDirectory] = useState([{
+    const [directory, setDirectory] = useState<MenuItem[]>([{
         id: uuidv4(),
         name: "home",
-        icon: "",
+        isFolder: true,
         children: []
     }])
-    const [mouseCoords, setMouseCoords] = useState([0, 0])
-    const [showMenu, setShowMenu] = useState(false)
-    const [activeMenuId, setActiveMenuId] = useState('')
-    const handleMenuClose = () => { setShowMenu(false) }
-    const handleClickOnDirectory = (id: string, event: React.MouseEvent) => {
-        setActiveMenuId(id);
-        setShowMenu(false);
-        setMouseCoords([event.clientX, event.clientY]);
-        setShowMenu(true);
-    }
+    const [showMenu, setShowMenu] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<string>('');
+    const [clickPosition, setClickPosition] = useState<number[]>([0, 0]);
 
-    const recursiveInsert = (menuTree: MenuItem[], partialMenuTree: MenuItem, insertionNode: string): MenuItem[] => {
-        console.log('directory', directory)
-        const output: MenuItem[] = menuTree?.map(i => {
-            if (i.id === insertionNode) {
-                const _obj: MenuItem = partialMenuTree
-                if (i.children) {
-                    i.children.push(_obj)
-                    i.children = i.children.sort((a, b) => a.name.localeCompare(b.name))
-                } else {
-                    menuTree.push(_obj)
-                    menuTree = menuTree.sort((a, b) => a.name.localeCompare(b.name))
-                }
-            }
-            else {
-                i.children && recursiveInsert({ ...i.children }, { ...partialMenuTree }, insertionNode);
-            }
-            return i;
-        })
-        console.log('output', output)
-        return output;
-    }
-    const handleMenuInput = (type: string, name: string) => {
-        setShowMenu(false)
+    const handleDismissMenu = () => setShowMenu(false)
+    const handleSubmitMenu = (assetType: string, assetName: string) => {
+        setShowMenu(false);
         const _obj: MenuItem = {
             id: uuidv4(),
-            icon: '',
-            name: name,
+            isFolder: assetType === ASSETS.FOLDER,
+            name: assetName,
             children: []
         }
-        if (type === 'file')
-            _obj.children = null
-
-        let _existingDirectory: MenuItem[] = directory
-        let _updatedDirectory: MenuItem[] = recursiveInsert(_existingDirectory, _obj, activeMenuId)
-        // setDirectory(_updatedDirectory)
+        let _updatedDirectory: MenuItem[] = recursiveInsert(directory, _obj, selectedId)
+        setDirectory(_updatedDirectory)
+        setSelectedId('');
+    }
+    const handleNodeClick = (id: string, position: number[]) => {
+        setShowMenu(false);
+        setSelectedId(id);
+        setClickPosition(position);
+        setShowMenu(true);
     }
 
     return (
         <div className="position-relative">
             <h3>VS Code File Browser</h3>
             <p>Click on Home to start creating the directory tree</p>
-            <View directory={directory} itemClicked={(e, x) => handleClickOnDirectory(e, x)} />
-            {showMenu && <Menu position={mouseCoords} dismissMenu={handleMenuClose} submitMenu={handleMenuInput} />}
+            {showMenu && <Menu position={clickPosition} dismissMenu={handleDismissMenu} submitMenu={handleSubmitMenu} />}
+            <View selectedNode={handleNodeClick} directory={directory} />
         </div>
     )
 }
 
 export default VSCodeFileBrowser
+

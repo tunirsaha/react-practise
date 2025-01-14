@@ -5,7 +5,7 @@ import Counter from './components/Counter'
 
 const CounterWithProps = () => {
 
-  const [count, updateCount] = useState(0);
+  const [count, updateCount] = useState<number>(0);
   const handleIncrement = () => {
     updateCount(count + 1)
   }
